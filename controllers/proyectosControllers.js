@@ -1,3 +1,7 @@
+const Proyectos = require('../models/Proyectos');
+const slug = require('slug');
+
+
 exports.proyectosHome = (req, res)=>{
     res.render('index', {
         nombrePagina: 'Proyectos'
@@ -10,7 +14,7 @@ exports.formularioProyectos = (req, res)=>{
     });
 }
 
-exports.nuevoProyecto = (req, res)=>{
+exports.nuevoProyecto = async(req, res)=>{
     //Ver en consola
     console.log(req.body);
     // validar el input
@@ -28,5 +32,9 @@ exports.nuevoProyecto = (req, res)=>{
             nombrePagina: 'Nuevo Proyecto',
             errores
         })
+    }else{
+        //No hay errores
+        const proyecto = await Proyectos.create({nombre});
+        res.redirect('/');
     }
 }

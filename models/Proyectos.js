@@ -1,6 +1,12 @@
 const Sequelize = require('sequelize');
-
+const slug = require('slug');
+const shotid = require('shortid');
 const db = require('../config/db');
+
+const { proyectosHome } = require('../controllers/proyectosControllers');
+const shortid = require('shortid');
+
+
 
 const Proyectos = db.define('Proyectos',{
     id: {
@@ -16,6 +22,14 @@ const Proyectos = db.define('Proyectos',{
         type: Sequelize.STRING
     }
 
+},{
+    hooks: {
+        beforeCreate(proyecto){
+            const url = slug(proyecto.nombre).toLocaleLowerCase();
+
+            proyecto.url = `${url}-${shortid.generate()}`;
+        }
+    }
 });
 
 module.exports = Proyectos;
