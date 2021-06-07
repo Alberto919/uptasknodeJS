@@ -3,6 +3,17 @@ const express = require('express');
 const routes = require('./routes');
 const path = require('path');
 
+
+// Crear la conexion a la BD
+const db = require('./config/db');
+
+// Importar el modelo
+require('./models/Proyectos');
+
+db.sync()
+    .then(()=> console.log('Conectando al Servidor...'))
+    .catch(error => console.log(error))
+
 // crear una app de express
 const app = express();
 
