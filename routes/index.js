@@ -16,6 +16,11 @@ module.exports = function(){
     router.get('/nuevo-proyecto', proyectosControllers.formularioProyectos);
     router.post('/nuevo-proyecto', 
         body('nombre').not().isEmpty().trim().escape(),
-        proyectosControllers.nuevoProyecto);
+        proyectosControllers.nuevoProyecto
+    );
+
+    //Listar Proyectos
+    router.get('/proyectos/:url', proyectosControllers.proyectoPorUrl);
+    
     return router;
 }

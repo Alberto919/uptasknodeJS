@@ -3,6 +3,9 @@ const express = require('express');
 const routes = require('./routes');
 const path = require('path');
 
+// Helpers
+const helpers = require('./helpers')
+
 
 // Crear la conexion a la BD
 const db = require('./config/db');
@@ -25,6 +28,23 @@ app.set('view engine', 'pug');
 
 //Añadir la carpeta de las vistas
 app.set('views', path.join(__dirname,'./views'));
+
+app.use((req,res, next)=>{
+    res.locals.vardump = helpers.vardump;
+    next();
+})
+
+// Pasar var dump a la app
+app.use((req,res, next)=>{
+    console.log('Yo soy un middleware');
+    next();
+})
+
+// Pasar var dump a la app
+app.use((req,res, next)=>{
+    console.log('Yo soy otro middleware');
+    next();
+})
 
 //Habilitar bodyParser
 app.use(express.urlencoded({extended:true}));
