@@ -4,8 +4,8 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet", href=" ./css/normalize.css")
-        link(rel="stylesheet", href="./css/app.css")
+        link(rel="stylesheet", href="/css/normalize.css")
+        link(rel="stylesheet", href="/css/app.css")
         title= nombrePagina
     body 
         header.barra 
@@ -15,7 +15,7 @@ html(lang="en")
         main.contenedor 
             aside.contenedor-proyectos 
                 .panel.crear-proyecto
-                    a(href="nuevo-proyecto" class="boton") Nuevo Proyecto
+                    a(href="/nuevo-proyecto" class="boton") Nuevo Proyecto
                         span +  
                 .panel.lista-proyectos  
                     h2 Proyectos
@@ -26,7 +26,7 @@ html(lang="en")
                                     a(href=`/proyectos/${proyecto.url}`)= proyecto.nombre 
             block contenido
 
-            //pre= vardump(proyectos)
+            //pre= vardump(proyecto)
                 
             
         

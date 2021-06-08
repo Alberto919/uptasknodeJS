@@ -5,22 +5,25 @@ const router = express.Router();
 const {body} = require('express-validator/check');
 
 
-const proyectosControllers = require('../controllers/proyectosControllers');
+const proyectosController = require('../controllers/proyectosControllers');
 
 
 
 
 module.exports = function(){
-    // ruta para el home
-    router.get('/', proyectosControllers.proyectosHome);
-    router.get('/nuevo-proyecto', proyectosControllers.formularioProyectos);
+    //ruta para el home
+    router.get('/', proyectosController.proyectosHome);
+    router.get('/nuevo-proyecto', proyectosController.formularioProyectos);
     router.post('/nuevo-proyecto', 
         body('nombre').not().isEmpty().trim().escape(),
-        proyectosControllers.nuevoProyecto
+        proyectosController.nuevoProyecto
     );
 
     //Listar Proyectos
-    router.get('/proyectos/:url', proyectosControllers.proyectoPorUrl);
+    router.get('/proyectos/:url', proyectosController.proyectoPorUrl);
     
+    //Actualizar el Proyecto
+    router.get('/proyecto/editar/:id', proyectosController.formularioEditar);
+    router.post('/nuevo-proyecto/:id', body('nombre').not().isEmpty().trim().escape(), proyectosController.actualizarProyecto);
     return router;
 }

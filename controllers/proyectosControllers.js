@@ -70,3 +70,58 @@ exports.proyectoPorUrl = async(req,res,next)=>{
         proyectos
     })
 }
+
+exports.formularioEditar = async (req, res) => {
+    //Obtengo todos los proyectos
+    const proyectosPromise = Proyectos.findAll();
+    
+    //Ver en consola
+    console.log(req.body);
+
+    //Obtengo un unico proyectos
+    const proyectoPromise = Proyectos.findOne({
+        where:{
+            id: req.params.id
+        }
+    });
+
+    const [proyectos, proyecto] = await Promise.all([proyectosPromise,proyectoPromise])
+
+    // render a la vista
+    res.render('nuevoProyecto', {
+        nombrePagina : 'Editar Proyecto',
+        proyectos,
+        proyecto
+    })
+}
+
+exports.actualizarProyecto = async (req, res) => {
+    //Obtengo todos los proyectos
+    const proyectos = await Proyectos.findAll();
+
+    // validar que tengamos algo en el input
+    const nombre = req.body.nombre;
+
+    let errores = [];
+
+    if(!nombre) {
+        errores.push({'texto': 'Agrega un Nombre al Proyecto'})
+    }
+
+    // si hay errores
+    if(errores.length > 0 ){
+        res.render('nuevoProyecto', {
+            nombrePagina : 'Nuevo Proyecto',
+            errores,
+            proyectos
+        })
+    } else {
+        // No hay errores
+        // Actualiza en la BD.
+        await Proyectos.update(
+            { nombre: nombre },
+            { where: { id: req.params.id }} 
+        );
+        res.redirect('/');
+    }
+}
