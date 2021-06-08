@@ -3,7 +3,7 @@ const slug = require('slug');
 const shotid = require('shortid');
 const db = require('../config/db');
 
-const { proyectosHome } = require('../controllers/proyectosControllers');
+const { proyectosHome } = require('../controllers/proyectosController');
 const shortid = require('shortid');
 
 
