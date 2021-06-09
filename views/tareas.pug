@@ -11,9 +11,21 @@ block contenido
             .campo.enviar
                 input.boton.nueva-tarea(type="submit" value="Agregar") 
 
-        //TODO - Listado de Pendientes
-
-        //pre= vardump(proyecto)
+        .listado-pendientes
+            ul
+              if tareas.length
+                each tarea in tareas
+                    li.tarea(data-tarea=tarea.id)
+                        p= tarea.tarea
+                        .acciones
+                            if tarea.estado
+                                i.far.fa-check-circle.completo
+                            else 
+                                i.far.fa-check-circle
+                            i.fas.fa-trash  
+              else 
+                p No hay tareas en este proyecto 
+        // pre= vardump(tareas)
 
         //Acciones que se pueden realizar
         .contenedor-acciones 
