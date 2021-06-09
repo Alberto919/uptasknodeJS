@@ -8,7 +8,7 @@ const shortid = require('shortid');
 
 
 
-const Proyectos = db.define('Proyectos',{
+const Proyectos = db.define('Proyectos', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -16,15 +16,15 @@ const Proyectos = db.define('Proyectos',{
     },
     nombre: {
         type: Sequelize.STRING,
-        
+
     },
     url: {
         type: Sequelize.STRING
     }
 
-},{
+}, {
     hooks: {
-        beforeCreate(proyecto){
+        beforeCreate(proyecto) {
             const url = slug(proyecto.nombre).toLocaleLowerCase();
 
             proyecto.url = `${url}-${shortid.generate()}`;

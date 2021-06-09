@@ -15,7 +15,7 @@ require('./models/Proyectos');
 require('./models/Tareas');
 
 db.sync()
-    .then(()=> console.log('Conectando al Servidor...'))
+    .then(() => console.log('Conectando al Servidor...'))
     .catch(error => console.log(error))
 
 // crear una app de express
@@ -28,27 +28,27 @@ app.use(express.static('public'));
 app.set('view engine', 'pug');
 
 //Añadir la carpeta de las vistas
-app.set('views', path.join(__dirname,'./views'));
+app.set('views', path.join(__dirname, './views'));
 
-app.use((req,res, next)=>{
+app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;
     next();
 })
 
 // Pasar var dump a la app
-app.use((req,res, next)=>{
+app.use((req, res, next) => {
     console.log('Yo soy un middleware');
     next();
 })
 
 // Pasar var dump a la app
-app.use((req,res, next)=>{
+app.use((req, res, next) => {
     console.log('Yo soy otro middleware');
     next();
 })
 
 //Habilitar bodyParser
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', routes());
 app.listen(3000);
