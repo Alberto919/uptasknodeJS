@@ -2,6 +2,9 @@ const { Router } = require('express');
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
+const flash = require('connect-flash');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 // Helpers
 const helpers = require('./helpers')
@@ -13,6 +16,7 @@ const db = require('./config/db');
 // Importar el modelo
 require('./models/Proyectos');
 require('./models/Tareas');
+require('./models/Usuarios');
 
 db.sync()
     .then(() => console.log('Conectando al Servidor...'))
@@ -21,29 +25,29 @@ db.sync()
 // crear una app de express
 const app = express();
 
+//Habilitar Pug
+app.set('view engine', 'pug');
+
 //Donde cargar los archivos estaticos
 app.use(express.static('public'));
 
-//Habilitar Pug
-app.set('view engine', 'pug');
 
 //Añadir la carpeta de las vistas
 app.set('views', path.join(__dirname, './views'));
 
+// Flash messages
+app.use(flash());
+
+//Habilita las sesiones
+app.use(session({ 
+    secret: "secreta", 
+    resave: false, 
+    saveUninitialized: false 
+}));
+
 app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;
-    next();
-})
-
-// Pasar var dump a la app
-app.use((req, res, next) => {
-    console.log('Yo soy un middleware');
-    next();
-})
-
-// Pasar var dump a la app
-app.use((req, res, next) => {
-    console.log('Yo soy otro middleware');
+    res.locals.mensajes= req.flash(),
     next();
 })
 
