@@ -36,3 +36,16 @@ exports.crearCuenta = async (req, res) => {
         })
     }
 }
+
+// Reestablecer contraseña
+exports.validarToken = (req, res) => {
+    res.render('reestablecer', {
+        nombrePagina: 'Reestablecer tu Contraseña'
+    })
+}
+
+exports.formRestablecerPassword = (req, res) => {
+    res.render('reestablecer', {
+        nombrePagina: 'Reestablecer tu Contraseña'
+    })
+}
