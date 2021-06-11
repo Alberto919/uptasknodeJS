@@ -79,7 +79,7 @@ module.exports = function () {
     
     // Iniciar sesión
     router.get('/iniciar-sesion', usuariosController.formIniciarSesion);
-    router.post('/iniciar-sesion', authController.autenticarUsuario);;
+    router.post('/iniciar-sesion', authController.autenticarUsuario);
     
     // Cerrar sesion
     router.get('/cerrar-sesion', authController.cerrarSesion);
