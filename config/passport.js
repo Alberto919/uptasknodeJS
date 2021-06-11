@@ -17,7 +17,8 @@ passport.use(
                 // Buscamos en la base de datos
                 const usuario = await Usuarios.findOne({
                     where: {
-                        email
+                        email,
+                        activo: 1
                     }
                 });
 
